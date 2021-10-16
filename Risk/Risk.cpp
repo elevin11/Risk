@@ -241,7 +241,8 @@ int main()
 		if (parse[0] == "display_map")
 		{
 			DisplayMap d_map("disp");
-			
+			cout << "testing git" << endl; 
+			//
 		}
 
 
