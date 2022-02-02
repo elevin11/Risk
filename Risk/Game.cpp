@@ -173,6 +173,7 @@ void Game::claimRegions()
 	//sets troops for each player
 	if (numPlayers > map.getNumRegions())
 	{
+		cout << map.getNumRegions() << " region in map" << endl;
 		cout << "Too many players for this map " << endl << endl;
 		return;
 	}
@@ -241,19 +242,23 @@ void Game::claimRegions()
 
 			
 			
-
+			//BUG: checkForRegion returns true, but chosenRegion still gets assigned nullptr
 			if (map.checkForRegion(regionName)) //true if chosenRegion != nullptr
 			{
-
-				chosenRegion = map.getRegion(regionName);
+				chosenRegion = map.getRegion(regionName);	
 			}
 			else
 			{ 
+				cout << "Region name = " << regionName << endl;
+				cout << map.getNumRegions() << endl;
+				cout << regionName.size() << endl;
+
 				cout << "please enter a valid region name" << endl;
 				cout << regionName << " is not valid" << endl;
 				chosenRegion = nullptr;
 				continue;
 			}
+
 
 			if (chosenRegion->getOwner() != nullptr) //true if chosenRegion has an owner
 			{

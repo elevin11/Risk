@@ -29,6 +29,6 @@ private:
 	int troops = 0;
 	int deployable = 0;
 	int regionsOwned = 0;
-	const int id = 0;
+	const int id = 0; 
 };
 

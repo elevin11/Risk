@@ -22,9 +22,10 @@ public:
     void print(); // print lists of regions and their neighbors
     void link(string, string); // connects two regions in map
     bool checkDuplicate(Region&); //checks if given region is already part of map
-    bool checkForRegion(string); //checks if region by that name belongs to map
-    Region* getRegion(string); //returns region with given name
+    virtual bool checkForRegion(string); //checks if region by that name belongs to map
+    virtual Region* getRegion(string); //returns region with given name
     int getNumRegions();
+    void changeNumRegions(int change);
     
 
 //    void addContinent(string); //adds continent with given name

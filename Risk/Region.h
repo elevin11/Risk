@@ -24,7 +24,6 @@ public:
     bool isNeighbor(Region &); //Returns whether given Region is neighbor of this one
     string getNeighborNames(); //returns list of neighors' names
     vector<Region *> getNeighbors();
-    //test
 
     void setTroops(int);
     void incTroops(int);

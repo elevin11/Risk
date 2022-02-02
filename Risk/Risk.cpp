@@ -41,7 +41,7 @@ int main()
 
 
 	//create map for testing, code custom maps later
-	Map midwest("Midwest");
+	DisplayMap midwest("Midwest");
 
 	cout << "Welcome to Risk!" << endl;
 	print_help();
@@ -89,22 +89,68 @@ int main()
 		{
 			if (parse.size() > 1)
 			{
-				string newName;
+				string newName = parse[1];
 				int newID;
+				int col_in;
+				int row_in;
 
+				if (parse.size() > 3)
+				{
+					try
+					{
+						row_in = stoi(parse[2]);
+						col_in = stoi(parse[3]);
+					}
+					catch (exception& e)
+					{
+						cout << "invalid coordinates" << endl;
+						continue;
+					}
+				}
+				else
+				{
+					cout << "invalid number of arguments" << endl;
+					continue;
+				}
+
+
+
+				newID = newGame.getNumRegions();
+
+				Region* newRegion = new Region(newName, newID);
+
+				//	cout << " add " << newRegion->getName() << " i: " << i - 1 << endl;
+				midwest.addRegion(*newRegion, row_in, col_in);
+
+
+				/*
 				for (int i = 1; i < parse.size(); ++i)
 				{
+					cout << "i - " << i << endl;
 					newName = parse[i];
 					newID = newGame.getNumRegions();
 
 					Region* newRegion = new Region(newName, newID);
 
-					midwest.addRegion(*newRegion);
+					//	cout << " add " << newRegion->getName() << " i: " << i - 1 << endl;
+					midwest.addRegion(*newRegion, i - 1, 0);
 				}
-
+				*/
 			}
 
 
+		}
+
+		if (parse[0] == "blank")
+		{
+			if (parse.size() > 2)
+			{
+				int x_size = stoi(parse[1]);
+				int y_size = stoi(parse[2]);
+
+				DisplayMap blankMap("blank", x_size, y_size);
+				blankMap.print();
+			}
 		}
 
 
@@ -238,12 +284,7 @@ int main()
 			cout << "GAME OVER" << endl << endl;
 		}
 
-		if (parse[0] == "display_map")
-		{
-			DisplayMap d_map("disp");
-			cout << "testing git" << endl; 
-			//
-		}
+
 
 
 		if (parse[0] == "help")

@@ -109,6 +109,11 @@ int Map::getNumRegions()
 	return numRegions;
 }
 
+void Map::changeNumRegions(int change)
+{
+	numRegions += change;
+}
+
 void Map::print()
 {
 
