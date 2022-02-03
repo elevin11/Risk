@@ -143,6 +143,7 @@ void DisplayMap::print()
 		cout << y << "   ";
 		for (x = 0; x < regions.size(); ++x) //print out region names
 		{
+			
 			if (y < regions[x].size())
 			{
 				//prints out 16 chars - region name + space for remainder
@@ -178,14 +179,34 @@ void DisplayMap::print()
 				}
 				else
 				{
-					//prints out 16 chars - region name + space for remainder
+					//prints out 16 chars - region name + space for remainder or dashes if linked
 					cout << regions[x][y]->getOwnerName();
 					int name_length = regions[x][y]->getOwnerName().length();
-					for (int i = 0; i < maxName - name_length; ++i)
+
+					if (x < regions.size() - 1)
 					{
-						cout << " ";
+						if (regions[x][y]->isNeighbor(*regions[x + 1][y] )) 
+						{
+							cout << " ";
+							for (int i = 1; i < maxName - name_length - 1; ++i)
+							{
+								cout << "-";
+							}
+							cout << " ";
+						}
+						else
+						{
+							for (int i = 0; i < maxName - name_length; ++i)
+							{
+								cout << " ";
+							}
+						}
 					}
-				}			
+
+
+
+
+				 }			
 			}
 			else
 			{
@@ -244,6 +265,42 @@ void DisplayMap::print()
 			}
 		}
 		cout << endl;
+		cout << " " << "   ";
+		for (x = 0; x < regions.size(); ++x) //print out links
+		{
+			if (y < regions[x].size())
+			{
+				if (y < regions[x].size() - 1)
+				{
+					if (regions[x][y]->isNeighbor(*regions[x][y + 1]))
+					{
+						cout << "|";
+						for (int i = 0; i < maxName - 1; ++i)
+						{
+							cout << " ";
+						}
+					}
+					else
+					{
+						for (int i = 0; i < maxName; ++i)
+						{
+							cout << " ";
+						}
+					}
+
+				}
+
+
+			}
+			else
+			{
+				cout << "-";
+				for (int i = 0; i < maxName - 1; ++i)
+				{
+					cout << " ";
+				}
+			}
+		}
 	}
 	cout << endl;
 
@@ -276,7 +333,7 @@ void DisplayMap::link(string region_1, string region_2)
 	pair<int, int> coord_2 = getCoordinates(region_2);
 
 	int x_dif = abs(coord_1.first - coord_2.first);
-	int y_dif = abs(coord_2.second - coord_2.second);
+	int y_dif = abs(coord_1.second - coord_2.second);
 
 	if ( (x_dif == 1 && y_dif == 0 )|| (y_dif == 1 && x_dif == 0) )
 	{
