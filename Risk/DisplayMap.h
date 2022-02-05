@@ -29,7 +29,7 @@ public:
     };
 private:
     string name; //name of map
-    vector<vector<Region*>> regions; //list of regions, each must have unique name
+    vector<vector<Region*>> regions; //list of columns, each of which is vector of region pointers
  //   int numRegions = 0;
     int maxName = 16;
 };

@@ -49,10 +49,52 @@ int main()
 	string buff;
 	getline(cin, buff); //flushing input to make below work
 
+
+
+
+	Region mich("michigan", 0);
+	Region ohio("ohio", 1);
+	Region wisc("wisconsin", 2);
+	Region indi("indiana", 3);
+
+	midwest.addRegion(mich, 0, 0);
+	midwest.addRegion(ohio, 0, 1);
+	midwest.addRegion(wisc, 1, 0);
+	midwest.addRegion(indi, 1, 1);
+
+	midwest.link("michigan", "ohio");
+	midwest.link("michigan", "wisconsin");
+	midwest.link("indiana", "ohio");
+	midwest.link("indiana", "wisconsin");
+
 	Game newGame(0, 1, midwest);
 
 	newGame.addPlayer("eric");
 	newGame.addPlayer("char");
+
+	Player * eric_ptr = newGame.getPlayer(0);
+	Player * char_ptr = newGame.getPlayer(1);
+
+	midwest.getRegion("wisconsin")->setOwner(*eric_ptr);
+	eric_ptr->incRegions();
+	midwest.getRegion("ohio")->setOwner(*eric_ptr);
+	eric_ptr->incRegions();
+
+	midwest.getRegion("michigan")->setOwner(*char_ptr);
+	char_ptr->incRegions();
+	midwest.getRegion("indiana")->setOwner(*char_ptr);
+	char_ptr->incRegions();
+
+	eric_ptr->setDeployable(6);
+	eric_ptr->setTroops(6);
+	char_ptr->setDeployable(6);
+	char_ptr->setTroops(6);
+
+	newGame.deployTroops(*eric_ptr, wisc, 4);
+	newGame.deployTroops(*eric_ptr, ohio, 2);
+	newGame.deployTroops(*char_ptr, mich, 3);
+	newGame.deployTroops(*char_ptr, indi, 3);
+
 
 
 	while (input)
@@ -113,44 +155,15 @@ int main()
 					continue;
 				}
 
-
-
 				newID = newGame.getNumRegions();
 
 				Region* newRegion = new Region(newName, newID);
 
-				//	cout << " add " << newRegion->getName() << " i: " << i - 1 << endl;
 				midwest.addRegion(*newRegion, row_in, col_in);
 
-
-				/*
-				for (int i = 1; i < parse.size(); ++i)
-				{
-					cout << "i - " << i << endl;
-					newName = parse[i];
-					newID = newGame.getNumRegions();
-
-					Region* newRegion = new Region(newName, newID);
-
-					//	cout << " add " << newRegion->getName() << " i: " << i - 1 << endl;
-					midwest.addRegion(*newRegion, i - 1, 0);
-				}
-				*/
 			}
 
 
-		}
-
-		if (parse[0] == "blank")
-		{
-			if (parse.size() > 2)
-			{
-				int x_size = stoi(parse[1]);
-				int y_size = stoi(parse[2]);
-
-				DisplayMap blankMap("blank", x_size, y_size);
-				blankMap.print();
-			}
 		}
 
 
@@ -272,6 +285,10 @@ int main()
 			{
 				newGame.turnCycle();
 				over = newGame.checkVictors();
+				if (over)
+				{
+					cout << "FIRST CHECK FOR VICTORS PASSES" << endl;
+				}
 			}
 			for (int i = 0; i < newGame.getNumPlayers(); ++i)
 			{

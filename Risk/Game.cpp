@@ -15,6 +15,7 @@ Game::Game(int players_in, int troops_in, Map & map_in)
 	
 }
 
+
 void Game::turn(Player& player)
 {
 	cout << player.getName() << "'s turn" << endl;
@@ -360,8 +361,8 @@ void Game::deployPhase(Player& player, int new_troops)
 		{
 			map.print();
 			listPlayers();
+			continue;
 		}
-
 		if (map.getRegion(regionName) == nullptr)
 		{
 			cout << "invalid region name " << endl;

@@ -39,7 +39,7 @@ void DisplayMap::addRegion(Region& newRegion, int row, int col)
 {
 	int colHeight = regions[0].size();
 
-	if (col >= regions.size())
+	if (col >= regions.size()) //create new column for region
 	{
 		int colsToAdd = col - regions.size() + 1; //counts number of columns to be added
 
@@ -58,7 +58,7 @@ void DisplayMap::addRegion(Region& newRegion, int row, int col)
 
 	}
 
-	if (row >= colHeight)
+	if (row >= colHeight) //create new row for region
 	{
 		int rowsToAdd = row - regions[0].size() + 1; //number of rows to be added
 		Region* newRegion;
@@ -74,6 +74,10 @@ void DisplayMap::addRegion(Region& newRegion, int row, int col)
 	}
 
 	//has already been resized with blank tiles, now add new region
+	if (regions[col][row]->getID() == -1) //check if tile is blank - only increase region count if not overriding existing region
+	{
+		changeNumRegions(1);
+	}
 	regions[col][row] = &newRegion;
 }
 

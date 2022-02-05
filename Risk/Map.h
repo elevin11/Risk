@@ -19,12 +19,12 @@ public:
     void removeRegion(string name);
     void removeAllRegions();
 
-    void print(); // print lists of regions and their neighbors
+    virtual void print(); // print lists of regions and their neighbors
     void link(string, string); // connects two regions in map
     bool checkDuplicate(Region&); //checks if given region is already part of map
     virtual bool checkForRegion(string); //checks if region by that name belongs to map
     virtual Region* getRegion(string); //returns region with given name
-    int getNumRegions();
+    virtual int getNumRegions();
     void changeNumRegions(int change);
     
 
