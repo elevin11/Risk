@@ -24,9 +24,10 @@ bool Continent::updateOwner()
 	vector<Region*>::iterator it;
 	for (it = regions.begin(); it != regions.end(); ++it) //check if any regions in continent have differnt owner
 	{
-		if ((*it)->getOwner() != test_owner)
+		if ((*it)->getOwner() != test_owner) //if any two regions have different owners, set continent owner to null
 		{
 			same = false; 
+			owner = nullptr;
 			break;
 		}
 	}
@@ -45,4 +46,9 @@ Player* Continent::getOwner()
 int Continent::getValue()
 {
 	return value;
+}
+
+string Continent::getName()
+{
+	return name;
 }

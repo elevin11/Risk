@@ -13,6 +13,7 @@ public:
 	bool updateOwner(); //returns true if owner is changed
 	Player* getOwner();
 	int getValue(); 
+	string getName();
 private:
 	string name;
 	int value = 0; //number of troops from controlling this continent

@@ -11,34 +11,38 @@ DisplayMap::DisplayMap(string name_in)
 	newColumn.push_back(newRegion);
 
 	regions.push_back(newColumn);
+	maxRows = 1;
 
 }
 
-DisplayMap::DisplayMap(string name_in, int x_size, int y_size)
+DisplayMap::DisplayMap(string name_in, int rows_in, int columns_in)
 {
 	name = name_in;
-	if (x_size < 0)
-		x_size = 1;
-	if (y_size < 0)
-		y_size = 1;
+	if (rows_in < 0)
+		rows_in = 1;
+	if (columns_in < 0)
+		columns_in = 1;
 
-	for (int i = 0; i < x_size; ++i)
+	for (int i = 0; i < columns_in; ++i)
 	{
 		vector<Region*> newColumn;
 		Region* newRegion;
-		for (int j = 0; j < y_size; ++j)
+		for (int j = 0; j < rows_in; ++j)
 		{
 			newRegion = new Region("-", -1);
 			newColumn.push_back(newRegion);
 		}
-		regions.push_back(newColumn);		
+		regions.push_back(newColumn);
+		//check and set max row height if necessary
+		if (newColumn.size() > maxRows)
+		{
+			maxRows = newColumn.size();
+		}
 	}
 }
 
 void DisplayMap::addRegion(Region& newRegion, int row, int col)
 {
-	int colHeight = regions[0].size();
-
 	if (col >= regions.size()) //create new column for region
 	{
 		int colsToAdd = col - regions.size() + 1; //counts number of columns to be added
@@ -48,17 +52,23 @@ void DisplayMap::addRegion(Region& newRegion, int row, int col)
 			vector<Region*> newColumn;
 			Region* newRegion;
 
-			for (int j = 0; j < colHeight; ++j)
+			for (int j = 0; j < maxRows; ++j)
 			{
 				newRegion = new Region("-", -1);
 				newColumn.push_back(newRegion);
 			}
 			regions.push_back(newColumn);
+
+			//check and set max row height if necessary
+			if (newColumn.size() > maxRows)
+			{
+				maxRows = newColumn.size();
+			}
 		}
 
 	}
 
-	if (row >= colHeight) //create new row for region
+	if (row >= maxRows) //create new row for region
 	{
 		int rowsToAdd = row - regions[0].size() + 1; //number of rows to be added
 		Region* newRegion;
@@ -71,6 +81,8 @@ void DisplayMap::addRegion(Region& newRegion, int row, int col)
 				regions[i].push_back(newRegion);
 			}
 		}
+
+		maxRows = row;
 	}
 
 	//has already been resized with blank tiles, now add new region
@@ -114,6 +126,7 @@ void DisplayMap::print()
 	cout << name << ": " << endl;
 	cout << getNumRegions() << " regions in map" << endl;
 
+	//prints out column numbers
 	cout << "    ";
 	for (int i = 0; i < regions.size(); ++i)
 	{
@@ -141,7 +154,8 @@ void DisplayMap::print()
 		}
 	}
 
-	for (y = 0; y < max_col; ++y)
+
+	for (y = 0; y < maxRows; ++y) //this should be main loop - each iteration corresponds to a row of tiles
 	{
 		cout << endl;
 		cout << y << "   ";
@@ -308,17 +322,65 @@ void DisplayMap::print()
 	}
 	cout << endl;
 
+	cout << "Continents: " << endl;
+	for (int i = 0; i < getNumContinents(); ++i)
+	{
+		cout << getContinentList()[i]->getName() << " - " << getContinentList()[i]->getValue() << " - ";
+		if (getContinentList()[i]->getOwner() != nullptr)
+		{
+			cout << getContinentList()[i]->getOwner()->getName() << endl;
+		}
+		else
+		{
+			cout << "none" << endl;
+		}
+
+	}
+
+	cout << endl;
 }
 
 bool DisplayMap::checkForRegion(string region_name)
 {
-	cout << "display map check called" << endl;
 	Region* test_region = getRegion(region_name);
 	if (test_region != nullptr)
 	{
 		return true;
 	}
 
+	return false;
+}
+
+bool DisplayMap::checkForRegion(int row, int col)
+{
+	Region* test_region = nullptr;
+	if (col >= regions.size() || row > maxRows) 
+	{
+		return false;
+	}
+	else
+	{
+		test_region = regions[col][row];
+		if (test_region->getID() != -1)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool DisplayMap::checkDuplicate(Region& region_in)
+{
+	for (int i = 0; i < regions.size(); ++i)
+	{
+		for (int j = 0; j < regions[i].size(); ++j)
+		{
+			if (regions[i][j]->getName() == region_in.getName())
+			{
+				return true;
+			}
+		}
+	}
 	return false;
 }
 

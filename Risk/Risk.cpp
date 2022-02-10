@@ -4,11 +4,13 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include "Continent.h"
+#include "DisplayMap.h"
 #include "Game.h"
+#include "Map.h"
+#include "MapGenerator.h"
 #include "Region.h"
 #include "Tile.h"
-#include "Map.h"
-#include "DisplayMap.h"
 using namespace std;
 
 
@@ -30,6 +32,7 @@ void print_help()
 	cout << "check defeat / victory" << endl;
 	cout << "begin" << endl;
 	cout << "tile" << endl;
+	cout << "generate" << endl;
 }
 
 
@@ -67,6 +70,12 @@ int main()
 	midwest.link("indiana", "ohio");
 	midwest.link("indiana", "wisconsin");
 
+	vector<Region*> cont_a;
+	cont_a.push_back(&mich);
+	cont_a.push_back(&indi);
+	midwest.addContinent("Buttland", 10, cont_a);
+
+
 	Game newGame(0, 1, midwest);
 
 	newGame.addPlayer("eric");
@@ -94,6 +103,8 @@ int main()
 	newGame.deployTroops(*eric_ptr, ohio, 2);
 	newGame.deployTroops(*char_ptr, mich, 3);
 	newGame.deployTroops(*char_ptr, indi, 3);
+
+
 
 
 
@@ -301,6 +312,38 @@ int main()
 			cout << "GAME OVER" << endl << endl;
 		}
 
+		if (parse[0] == "generate")
+		{
+			if (parse.size() > 2)
+			{
+				int rows_in = stoi(parse[1]);
+				int cols_in = stoi(parse[2]);
+
+				vector<string> states;
+				states.push_back("michigan");
+				states.push_back("wisconsin");
+				states.push_back("ohio");
+				states.push_back("indiana");
+				states.push_back("illinois");
+				states.push_back("kentucky");
+				states.push_back("missouri");
+
+				vector<Player*> players_in_game;
+				for (int i = 0; i < newGame.getNumPlayers(); ++i)
+				{
+					players_in_game.push_back(newGame.getPlayer(i));
+				}
+
+				MapGenerator generator(states, players_in_game);
+				DisplayMap* random_map = generator.generate("My New Map", rows_in, cols_in);
+				random_map->print();
+			}
+			else
+			{
+				cout << "Not enough arguments to generate map" << endl;
+			}
+
+		}
 
 
 

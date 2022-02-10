@@ -21,6 +21,22 @@ void Game::turn(Player& player)
 	cout << player.getName() << "'s turn" << endl;
 	//deploy
 	int newTroops = player.getRegionsOwned() / 3;
+
+	map.updateAllContinents();
+	cout << player.getName() << " controls the following continents: " << endl;
+
+	vector<Continent*> conts = map.getContinentList();
+	vector<Continent*>::iterator it;
+	for (it = conts.begin(); it != conts.end(); ++it)
+	{
+		if (&player == (*it)->getOwner())
+		{
+			cout << (*it)->getName() << " - " << (*it)->getValue() << " troops" << endl;
+			newTroops += (*it)->getValue();
+		}
+	}
+
+
 	if (newTroops < 3)
 	{
 		newTroops = 3;

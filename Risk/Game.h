@@ -40,6 +40,7 @@ public:
     void deployTroops(Player& player_in, Region& region_in, int troops_in);
     void deployPhase(Player& player_in, int new_troops);
     void deployCycle();
+    int continentBonus(Player& player_in, Continent& cont_in);
 
     //ATTACK FUNCTIONS
     void attack(Player& attacker, Region& source, Region& target);

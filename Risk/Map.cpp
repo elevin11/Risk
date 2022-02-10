@@ -67,6 +67,8 @@ void Map::removeAllRegions()
 
 bool Map::checkDuplicate(Region& region_in)
 {
+	cout << "Map::checkDuplicate called " << endl;
+	cout << regions.size() << " regions in map" << endl;
 	for (vector<Region*>::iterator it = regions.begin(); it != regions.end(); ++it)
 	{
 		if (region_in.getName() == (*it)->getName())
@@ -112,6 +114,56 @@ int Map::getNumRegions()
 void Map::changeNumRegions(int change)
 {
 	numRegions += change;
+}
+
+void Map::addContinent(string name_in, int val_in, vector<Region*> regions_in)
+{
+	//checks that all the given regions already belong in map
+	vector<Region*>::iterator it;
+	for (it = regions_in.begin(); it != regions_in.end(); ++it)
+	{
+		if (!checkDuplicate(**it))
+		{
+			cout << "Error: could not add continent. Region " << (*it)->getName() << " not part of map" << endl;
+			return;
+		}
+	}
+
+	Continent* cont_ptr = new Continent(name_in, val_in, regions_in);
+
+	continents.push_back(cont_ptr);
+}
+
+int Map::getNumContinents()
+{
+	return continents.size();
+}
+
+Continent* Map::getContinent(string search_name)
+{
+	vector<Continent*>::iterator it;
+	for (it = continents.begin(); it != continents.end(); ++it)
+	{
+		if (search_name.compare((**it).getName()) == 0)
+		{
+			return *it;
+		}
+	}
+
+	return nullptr;
+}
+
+vector<Continent*> Map::getContinentList()
+{
+	return continents;
+}
+
+void Map::updateAllContinents()
+{
+	for (int i = 0; i < continents.size(); ++i)
+	{
+		bool update = continents[i]->updateOwner();
+	}
 }
 
 void Map::print()
