@@ -19,20 +19,13 @@ void print_help()
 {
 	cout << "Commands: " << endl;
 	cout << "new <REGION NAME> " << endl;
-	cout << "find <REGION NAME>" << endl;
-	cout << "link <REGION 1> <REGION 2>" << endl;
 	cout << "print" << endl;
-	cout << "help" << endl;
-	cout << "claim" << endl;
 	cout << "add player <PLAYER_NAME>" << endl;
-	cout << "delete all" << endl;
-	cout << "deploy" << endl;
-	cout << "attack" << endl;
-	cout << "fortify" << endl;
 	cout << "check defeat / victory" << endl;
 	cout << "begin" << endl;
-	cout << "tile" << endl;
 	cout << "generate" << endl;
+	cout << "help" << endl;
+	cout << "end" << endl;
 }
 
 
@@ -176,37 +169,7 @@ int main()
 
 
 		}
-
-
-		if (parse[0] == "find")
-		{
-			if (parse.size() > 1)
-			{
-				if (midwest.getRegion(parse[1]) != nullptr)
-				{
-					cout << midwest.getRegion(parse[1])->getName() << endl;
-				}
-				else
-				{
-					cout << "Could not find " << parse[1] << endl;
-				}
-			}
-		}
 	
-
-		if (parse[0] == "link")
-		{
-			if (parse.size() >= 3)
-			{
-				midwest.link(parse[1], parse[2]);
-
-			}
-		}
-
-		if (parse[0] == "end")
-		{
-			input = false;
-		}
 
 		if (parse[0] == "print")
 		{
@@ -214,10 +177,6 @@ int main()
 			newGame.listPlayers();
 		}
 
-		if (parse[0] == "claim")
-		{
-			newGame.claimRegions();
-		}
 
 //ADD PLAYER
 		if (parse.size() > 1 && parse[0] == "add" && parse[1] == "player")
@@ -251,20 +210,6 @@ int main()
 			}
 		}
 
-		if (parse[0] == "deploy")
-		{
-			newGame.deployCycle();
-		}
-
-		if (parse[0] == "attack")
-		{
-			newGame.attackCycle();
-		}
-
-		if (parse[0] == "fortify")
-		{
-			newGame.fortifyCycle();
-		}
 		
 		if (parse[0] == "check")
 		{
@@ -350,6 +295,11 @@ int main()
 		if (parse[0] == "help")
 		{
 			print_help();
+		}
+
+		if (parse[0] == "end")
+		{
+			input = false;
 		}
 
 	}
