@@ -11,7 +11,7 @@ DisplayMap::DisplayMap(string name_in)
 	newColumn.push_back(newRegion);
 
 	regions.push_back(newColumn);
-	maxRows = 1;
+	max_rows = 1;
 
 }
 
@@ -34,9 +34,9 @@ DisplayMap::DisplayMap(string name_in, int rows_in, int columns_in)
 		}
 		regions.push_back(newColumn);
 		//check and set max row height if necessary
-		if (newColumn.size() > maxRows)
+		if (newColumn.size() > max_rows)
 		{
-			maxRows = newColumn.size();
+			max_rows = newColumn.size();
 		}
 	}
 }
@@ -52,7 +52,7 @@ void DisplayMap::addRegion(Region& newRegion, int row, int col)
 			vector<Region*> newColumn;
 			Region* newRegion;
 
-			for (int j = 0; j < maxRows; ++j)
+			for (int j = 0; j < max_rows; ++j)
 			{
 				newRegion = new Region("-", -1);
 				newColumn.push_back(newRegion);
@@ -60,15 +60,15 @@ void DisplayMap::addRegion(Region& newRegion, int row, int col)
 			regions.push_back(newColumn);
 
 			//check and set max row height if necessary
-			if (newColumn.size() > maxRows)
+			if (newColumn.size() > max_rows)
 			{
-				maxRows = newColumn.size();
+				max_rows = newColumn.size();
 			}
 		}
 
 	}
 
-	if (row >= maxRows) //create new row for region
+	if (row >= max_rows) //create new row for region
 	{
 		int rowsToAdd = row - regions[0].size() + 1; //number of rows to be added
 		Region* newRegion;
@@ -82,7 +82,7 @@ void DisplayMap::addRegion(Region& newRegion, int row, int col)
 			}
 		}
 
-		maxRows = row;
+		max_rows = row;
 	}
 
 	//has already been resized with blank tiles, now add new region
@@ -133,21 +133,21 @@ void DisplayMap::print()
 		cout << i;
 		if (i < 10)
 		{
-			for (int j = 0; j < maxName - 1; ++j)
+			for (int j = 0; j < max_name - 1; ++j)
 			{
 				cout << " ";
 			}
 		}
 		else if (i < 100)
 		{
-			for (int j = 0; j < maxName - 2; ++j)
+			for (int j = 0; j < max_name - 2; ++j)
 			{
 				cout << " ";
 			}
 		}
 		else
 		{
-			for (int j = 0; j < maxName - 3; ++j)
+			for (int j = 0; j < max_name - 3; ++j)
 			{
 				cout << " ";
 			}
@@ -155,7 +155,7 @@ void DisplayMap::print()
 	}
 
 
-	for (y = 0; y < maxRows; ++y) //this should be main loop - each iteration corresponds to a row of tiles
+	for (y = 0; y <= max_rows; ++y) //this should be main loop - each iteration corresponds to a row of tiles
 	{
 		cout << endl;
 		cout << y << "   ";
@@ -167,7 +167,7 @@ void DisplayMap::print()
 				//prints out 16 chars - region name + space for remainder
 				cout << regions[x][y]->getName();
 				int name_length = regions[x][y]->getName().length();
-				for (int i = 0; i < maxName - name_length; ++i)
+				for (int i = 0; i < max_name - name_length; ++i)
 				{
 					cout << " ";
 				}
@@ -175,7 +175,7 @@ void DisplayMap::print()
 			else
 			{
 				cout << "-";
-				for (int i = 0; i < maxName - 1; ++i)
+				for (int i = 0; i < max_name - 1; ++i)
 				{
 					cout << " ";
 				}
@@ -190,7 +190,7 @@ void DisplayMap::print()
 				if (regions[x][y]->getID() == -1) //checks for blank tile
 				{
 					cout << "-";
-					for (int i = 0; i < maxName - 1; ++i)
+					for (int i = 0; i < max_name - 1; ++i)
 					{
 						cout << " ";
 					}
@@ -206,7 +206,7 @@ void DisplayMap::print()
 						if (regions[x][y]->isNeighbor(*regions[x + 1][y] )) 
 						{
 							cout << " ";
-							for (int i = 1; i < maxName - name_length - 1; ++i)
+							for (int i = 1; i < max_name - name_length - 1; ++i)
 							{
 								cout << "-";
 							}
@@ -214,7 +214,7 @@ void DisplayMap::print()
 						}
 						else
 						{
-							for (int i = 0; i < maxName - name_length; ++i)
+							for (int i = 0; i < max_name - name_length; ++i)
 							{
 								cout << " ";
 							}
@@ -229,7 +229,7 @@ void DisplayMap::print()
 			else
 			{
 				cout << "-";
-				for (int i = 0; i < maxName - 1; ++i)
+				for (int i = 0; i < max_name - 1; ++i)
 				{
 					cout << " ";
 				}
@@ -245,7 +245,7 @@ void DisplayMap::print()
 				if (regions[x][y]->getID() == -1) //checks for blank tile
 				{
 					cout << "-";
-					for (int i = 0; i < maxName - 1; ++i)
+					for (int i = 0; i < max_name - 1; ++i)
 					{
 						cout << " ";
 					}
@@ -267,7 +267,7 @@ void DisplayMap::print()
 					{
 						name_length = 3;
 					}
-					for (int i = 0; i < maxName - name_length; ++i)
+					for (int i = 0; i < max_name - name_length; ++i)
 					{
 						cout << " ";
 					}
@@ -276,7 +276,7 @@ void DisplayMap::print()
 			else
 			{
 				cout << "-";
-				for (int i = 0; i < maxName - 1; ++i)
+				for (int i = 0; i < max_name - 1; ++i)
 				{
 					cout << " ";
 				}
@@ -293,14 +293,14 @@ void DisplayMap::print()
 					if (regions[x][y]->isNeighbor(*regions[x][y + 1]))
 					{
 						cout << "|";
-						for (int i = 0; i < maxName - 1; ++i)
+						for (int i = 0; i < max_name - 1; ++i)
 						{
 							cout << " ";
 						}
 					}
 					else
 					{
-						for (int i = 0; i < maxName; ++i)
+						for (int i = 0; i < max_name; ++i)
 						{
 							cout << " ";
 						}
@@ -313,7 +313,7 @@ void DisplayMap::print()
 			else
 			{
 				cout << "-";
-				for (int i = 0; i < maxName - 1; ++i)
+				for (int i = 0; i < max_name - 1; ++i)
 				{
 					cout << " ";
 				}
@@ -354,7 +354,7 @@ bool DisplayMap::checkForRegion(string region_name)
 bool DisplayMap::checkForRegion(int row, int col)
 {
 	Region* test_region = nullptr;
-	if (col >= regions.size() || row > maxRows) 
+	if (col >= regions.size() || row > max_rows) 
 	{
 		return false;
 	}

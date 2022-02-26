@@ -33,7 +33,7 @@ private:
     string name; //name of map
     vector<vector<Region*>> regions; //list of columns, each of which is vector of region pointers
  //   int numRegions = 0;
-    int maxName = 16;
-    int maxRows = 0;
+    int max_name = 16;
+    int max_rows = 0;
 };
 

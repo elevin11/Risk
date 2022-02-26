@@ -38,7 +38,7 @@ private:
     string name; //name of map
     vector<Region *> regions; //list of regions, each must have unique name
     vector<Continent * > continents; //list of continents, must partition list of regions
-    int numRegions = 0;
+    int num_regions = 0;
 
 };
 

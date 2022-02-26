@@ -16,7 +16,7 @@ void Map::addRegion(Region& newRegion)
 	if (!checkDuplicate(newRegion))
 	{
 		regions.push_back(&newRegion);
-		++numRegions;
+		++num_regions;
 	}
 	else
 	{
@@ -29,7 +29,7 @@ void Map::addRegion(Region& newRegion, vector<Region*> newNeigbhors)
 	if (!checkDuplicate(newRegion))
 	{
 		regions.push_back(&newRegion);
-		++numRegions;
+		++num_regions;
 
 		for (vector<Region*>::iterator it = newNeigbhors.begin(); it != newNeigbhors.end(); ++it)
 		{
@@ -52,7 +52,7 @@ void Map::removeRegion(string name)
 		if ((*it)->getName() == rmv->getName())
 		{
 			regions.erase(it);
-			--numRegions;
+			--num_regions;
 		}
 	}
 }
@@ -61,7 +61,7 @@ void Map::removeAllRegions()
 {
 //	vector<Region*>::iterator it;
 	regions.clear();
-	numRegions = 0;
+	num_regions = 0;
 
 }
 
@@ -108,12 +108,12 @@ Region * Map::getRegion(string search_name)
 
 int Map::getNumRegions()
 {
-	return numRegions;
+	return num_regions;
 }
 
 void Map::changeNumRegions(int change)
 {
-	numRegions += change;
+	num_regions += change;
 }
 
 void Map::addContinent(string name_in, int val_in, vector<Region*> regions_in)

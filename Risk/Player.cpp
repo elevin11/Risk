@@ -34,7 +34,7 @@ string Player::getName()
 
 int Player::getRegionsOwned()
 {
-	return regionsOwned;
+	return regions_owned;
 }
 
 int Player::getTroops()
@@ -44,12 +44,12 @@ int Player::getTroops()
 
 void Player::incRegions()
 {
-	++regionsOwned;
+	++regions_owned;
 }
 
 void Player::decRegions()
 {
-	--regionsOwned;
+	--regions_owned;
 }
 
 int Player::getDeployable()

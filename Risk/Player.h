@@ -28,7 +28,7 @@ private:
 	string name = "";
 	int troops = 0;
 	int deployable = 0;
-	int regionsOwned = 0;
+	int regions_owned = 0;
 	const int id = 0; 
 };
 
