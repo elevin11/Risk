@@ -8,6 +8,7 @@
 #include "DisplayMap.h"
 #include "Game.h"
 #include "Map.h"
+#include "MapEditor.h"
 #include "MapGenerator.h"
 #include "Region.h"
 #include "Tile.h"
@@ -25,6 +26,7 @@ void print_help()
 	cout << "begin" << endl;
 	cout << "generate" << endl;
 	cout << "help" << endl;
+	cout << "editor" << endl;
 	cout << "end" << endl;
 }
 
@@ -290,6 +292,12 @@ int main()
 
 		}
 
+		if (parse[0] == "editor")
+		{
+			MapEditor editor;
+			editor.loop();
+			
+		}
 
 
 		if (parse[0] == "help")

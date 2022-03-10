@@ -49,6 +49,7 @@ void DisplayMap::addRegion(Region& newRegion, int row, int col)
 
 		for (int i = 0; i < colsToAdd; ++i) //fills in empty columns
 		{
+
 			vector<Region*> newColumn;
 			Region* newRegion;
 
@@ -70,7 +71,8 @@ void DisplayMap::addRegion(Region& newRegion, int row, int col)
 
 	if (row >= max_rows) //create new row for region
 	{
-		int rowsToAdd = row - regions[0].size() + 1; //number of rows to be added
+		//int rowsToAdd = row - regions[0].size() + 1; //OLD - changed to below to fix, need to go over for understanding
+		int rowsToAdd = row - max_rows + 1; //number of rows to be added
 		Region* newRegion;
 
 		for (int i = 0; i < regions.size(); ++i) //iterates through columns and resizes with blank tiles

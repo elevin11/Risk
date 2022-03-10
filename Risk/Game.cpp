@@ -583,6 +583,10 @@ void Game::attack(Player& attacker, Region& source, Region& target)
 		{
 			vector<string> parse = getUserInput();
 
+			if (parse.size() < 1) //check for empty input string
+			{
+				continue;
+			}
 
 			try
 			{
