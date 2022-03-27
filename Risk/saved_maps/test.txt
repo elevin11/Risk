@@ -1,0 +1,11 @@
+test
+16
+5
+5
+0 0 a e w n S 
+1 0 d E w N s 
+1 1 b e W n s 
+2 2 c e w n s 
+4 0 z E w n s 
+4 1 y e W n s 
+4 4 e e w n s 

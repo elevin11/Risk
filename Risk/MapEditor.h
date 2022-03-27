@@ -2,6 +2,7 @@
 #include "DisplayMap.h"
 #include "Map.h"
 
+#include <fstream>
 #include <sstream>
 #include <string>
 #include <vector>

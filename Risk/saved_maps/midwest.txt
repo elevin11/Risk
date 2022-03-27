@@ -1,0 +1,10 @@
+midwest
+16
+3
+3
+0 0 wisconsin E w n S 
+0 1 michigan e W n S 
+1 0 illinois E w N s 
+1 1 indiana E W N S 
+1 2 ohio e W n s 
+2 1 kentucky e w N s 

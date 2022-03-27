@@ -1,0 +1,7 @@
+butt
+16
+2
+2
+0 0 a E w n s 
+0 1 b e W n S 
+1 1 c e w N s 

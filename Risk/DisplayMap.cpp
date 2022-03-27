@@ -34,7 +34,7 @@ DisplayMap::DisplayMap(string name_in, int rows_in, int columns_in)
 		}
 		regions.push_back(newColumn);
 		//check and set max row height if necessary
-		if (newColumn.size() > max_rows)
+		if (newColumn.size() >= max_rows)
 		{
 			max_rows = newColumn.size();
 		}
@@ -71,6 +71,7 @@ void DisplayMap::addRegion(Region& newRegion, int row, int col)
 
 	if (row >= max_rows) //create new row for region
 	{
+		cout << "MAX_ROWS = " << max_rows << " " << row << endl;
 		//int rowsToAdd = row - regions[0].size() + 1; //OLD - changed to below to fix, need to go over for understanding
 		int rowsToAdd = row - max_rows + 1; //number of rows to be added
 		Region* newRegion;
@@ -84,7 +85,7 @@ void DisplayMap::addRegion(Region& newRegion, int row, int col)
 			}
 		}
 
-		max_rows = row;
+		max_rows = row + 1;
 	}
 
 	//has already been resized with blank tiles, now add new region
@@ -113,6 +114,26 @@ Region* DisplayMap::getRegion(string search_name)
 		}
 	}
 
+	return nullptr;
+}
+
+Region* DisplayMap::getRegion(int row, int col)
+{
+	if (row < max_rows && col < regions.size()) //check in bound
+	{
+		if (regions[col][row]->getID() != -1) //check for blank tile
+		{
+			return regions[col][row];
+		}
+		else
+		{
+			return nullptr;
+		}
+	}
+	else
+	{
+		cout << "invalid coordinates" << endl;
+	}
 	return nullptr;
 }
 
@@ -157,7 +178,7 @@ void DisplayMap::print()
 	}
 
 
-	for (y = 0; y <= max_rows; ++y) //this should be main loop - each iteration corresponds to a row of tiles
+	for (y = 0; y < max_rows; ++y) //this should be main loop - each iteration corresponds to a row of tiles
 	{
 		cout << endl;
 		cout << y << "   ";
@@ -434,4 +455,24 @@ pair<int, int> DisplayMap::getCoordinates(string region_in)
 	
 	cout << "region not found" << endl;
 	return pair<int, int>(-1, -1);
+}
+
+string DisplayMap::getName()
+{
+	return name;
+}
+
+int DisplayMap::getMaxNameLength()
+{
+	return max_name;
+}
+
+int DisplayMap::getMaxRows()
+{
+	return max_rows;
+}
+
+int DisplayMap::getNumColumns()
+{
+	return regions.size();
 }

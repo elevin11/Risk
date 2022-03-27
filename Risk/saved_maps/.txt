@@ -1,0 +1,8 @@
+
+16
+2
+2
+0 0 a E w n 
+0 1 b e W n S 
+1 0 d E w s 
+1 1 c e W N s 
